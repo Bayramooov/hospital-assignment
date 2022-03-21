@@ -1,0 +1,23 @@
+{
+  "name": "hospital",
+  "version": "1.0.0",
+  "description": "software solution for hospital staff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bayramooov/hospital.git"
+  },
+  "author": "Techieland",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bayramooov/hospital/issues"
+  },
+  "homepage": "https://github.com/Bayramooov/hospital#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mysql": "^2.18.1"
+  }
+}
