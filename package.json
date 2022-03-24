@@ -4,12 +4,14 @@
   "description": "software solution for hospital staff",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./server/src/index.js",
+    "dev": "nodemon ./server/src/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Bayramooov/hospital.git"
   },
+  "keywords": [],
   "author": "Techieland",
   "license": "ISC",
   "bugs": {
@@ -18,6 +20,6 @@
   "homepage": "https://github.com/Bayramooov/hospital#readme",
   "dependencies": {
     "express": "^4.17.3",
-    "mysql": "^2.18.1"
+    "pg": "^8.7.3"
   }
 }
