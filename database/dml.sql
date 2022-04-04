@@ -1,4 +1,13 @@
 -- --------------------------------------------------------------------------------------------------
+-- ROUTES
+-- --------------------------------------------------------------------------------------------------
+insert into routes (route, state) values ('/', 'R');
+insert into routes (route, state) values ('/countries', 'R');
+insert into routes (route, state) values ('/regions', 'R');
+insert into routes (route, state) values ('/persons', 'R');
+insert into routes (route, state) values ('/hospitals', 'R');
+
+-- --------------------------------------------------------------------------------------------------
 -- COUNTRIES
 -- --------------------------------------------------------------------------------------------------
 insert into countries (name, state) values ('Uzbekistan', 'A');

@@ -1,59 +1,72 @@
-var app = require("express")();
-var bodyParser = require('body-parser');
-var pool  = require('mysql').createPool({
-  connectionLimit : 10,
-  host            : 'localhost',
-  user            : 'root',
-  password        : '',
-  database        : 'hospital'
+// env constants
+const PORT = 4100;
+
+// Simple database immitation
+const ROUTES = [
+  {
+    route_name: '/',
+    response: `
+    <h1>Home page</h1>
+    <ul>
+      <li><h3><a href="/about">About</a></h3></li>
+      <li><h3><a href="/contact">Contact</a></h3></li>
+      <li><h3><a href="/persons">Persons</a></h3></li>
+      <li><h3><a href="/countriess">Countries</a></h3></li>
+    </ul>
+    `
+  },
+  {
+    route_name: '/about',
+    response: `
+    <h1>About page</h1>
+    <h3><a href="/">Home</a></h3>
+    `
+  },
+  {
+    route_name: '/contact',
+    response: `
+    <h1>Contact page</h1>
+    <h3><a href="/">Home</a></h3>
+    `
+  },
+  {
+    route_name: '/persons',
+    response: `
+    <h1>Persons lists</h1>
+    <h3><a href="/">Home</a></h3>
+    `
+  },
+  {
+    route_name: '/countries',
+    response: `
+    <h1>Countries lists</h1>
+    <h3><a href="/">Home</a></h3>
+    `
+  }
+];
+const NOT_FOUND = `
+<h1>404 not found!</h1>
+<h3><a href="/">Home</a></h3>
+`;
+
+// App
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  var r = ROUTES.find(r => r.route_name == req.url);
+
+  if (r) {
+    res.writeHead(200, { 'content-type': 'text/html' });
+    res.write(r.response);
+    res.end();
+
+  } else {
+    res.writeHead(404, { 'content-type': 'text/html' });
+    res.write(NOT_FOUND);
+    res.end();
+  }
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-function htmlJson(json) {
-  return `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hospital</title>
-</head>
-<body>
-  <h2>
-    <pre>${JSON.stringify(json, false, 2)}</pre>
-  </h2>
-</body>
-</html>`;
-}
-
-// Routes
-app.get("/", function(request, response) {
-  response.send("Application server is working!");
-});
-
-app.get('/countries', (req, res) => {
-  pool.query('call countries_load(null)', function (error, results, fields) {
-    if (error) throw error;
-    res.send(htmlJson(results[0]));
-  });
-});
-
-app.get('/regions', (req, res) => {
-  pool.query('call regions_load(null)', function (error, results, fields) {
-    if (error) throw error;
-    res.send(htmlJson(results[0]));
-  });
-});
-
-app.get('/persons', (req, res) => {
-  pool.query('call persons_load(null)', function (error, results, fields) {
-    if (error) throw error;
-    res.send(htmlJson(results[0]));
-  });
-});
-
-app.listen(4100, function () {
-	console.log("Started application on port %d", 4100);
+server.listen(PORT, () => {
+  console.log(`listening on http://localhost:${PORT}`);
 });

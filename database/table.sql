@@ -1,4 +1,20 @@
 -- --------------------------------------------------------------------------------------------------
+-- Framework tables
+-- --------------------------------------------------------------------------------------------------
+create table routes(
+  route_id                        int(10) unsigned    not null auto_increment,
+  route                           varchar(250)        not null,
+  state                           varchar(1)          not null comment '(R)eady, (N)ot ready',
+  constraint routes_pk primary key (route_id),
+  constraint routes_u1 unique (name)
+);
+
+alter table routes add constraint routes_c1 check (state in ('R', 'N'));
+alter table routes comment 'TECHIELAND: list of routes';
+
+-- --------------------------------------------------------------------------------------------------
+-- Application tables
+-- --------------------------------------------------------------------------------------------------
 create table countries(
   country_id                      int(10) unsigned    not null auto_increment,
   name                            varchar(250)        not null,

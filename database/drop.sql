@@ -1,4 +1,4 @@
-use dbad;
+use hospital;
 drop table if exists blood_donations;
 drop table if exists blood_drawings;
 drop table if exists procedure_doctors;
@@ -10,6 +10,7 @@ drop table if exists blood_groups;
 drop table if exists persons;
 drop table if exists regions;
 drop table if exists countries;
+drop table if exists routes;
 
 drop procedure if exists proc_countries_save;
 drop procedure if exists proc_get_countries;
