@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas</title>
+    <style type="text/css">
+        body {
+            padding: 0;
+            margin: 0;
+            /*background-color: #1a1a1a;*/
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        #fps {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 20px;
+            z-index: 100;
+            /*background-color: #1a1a1a;*/
+            /*color: white;*/
+            font-family: helvetica;
+        }
+    </style>
+</head>
+<body>
+    <div id="fps"></div>
+    <canvas></canvas>
+    <script src="canvas.js"></script>
+</body>
+</html>
