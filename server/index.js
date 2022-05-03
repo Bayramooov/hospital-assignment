@@ -1,11 +1,11 @@
 var app = require("express")();
 var bodyParser = require('body-parser');
 var pool  = require('mysql').createPool({
-  connectionLimit : 10,
+  connectionLimit : 100,
   host            : 'localhost',
   user            : 'root',
   password        : '',
-  database        : 'hospital'
+  database        : 'clinic'
 });
 
 app.use(bodyParser.json());

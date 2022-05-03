@@ -54,16 +54,6 @@ create index persons_i1 on persons(place_of_birth);
 create index persons_i2 on persons(region_id);
 
 -- --------------------------------------------------------------------------------------------------
-create table blood_groups(
-  blood_group_id                  int(10) unsigned    not null auto_increment,
-  name                            varchar(250)        not null,
-  constraint blood_groups_pk primary key (blood_group_id),
-  constraint blood_groups_u1 unique (name)
-);
-
-alter table blood_groups comment 'list of reference blood groups in the system';
-
--- --------------------------------------------------------------------------------------------------
 create table hospitals(
   hospital_id                     int(10) unsigned    not null auto_increment,
   name                            varchar(250)        not null,
@@ -160,37 +150,3 @@ alter table procedure_doctors comment 'list of curing procedures in the hospital
 
 create index procedure_doctors_i1 on procedure_doctors(procedure_id);
 create index procedure_doctors_i2 on procedure_doctors(doctor_id);
-
--- --------------------------------------------------------------------------------------------------
-create table blood_drawings(
-  drawing_id                      int(10) unsigned    not null auto_increment,
-  procedure_id                    int(10) unsigned    not null,
-  blood_group_id                  int(10) unsigned    not null,
-  amount                          int(10) unsigned    not null,
-  expiry_date                     datetime            not null,
-  status                          varchar(1)          not null comment '(A)vailable, (N)not available, (D)onated, (E)xpired',
-  constraint blood_drawings_pk primary key (drawing_id),
-  constraint blood_drawings_f1 foreign key (procedure_id) references procedures(procedure_id),
-  constraint blood_drawings_f2 foreign key (blood_group_id) references blood_groups(blood_group_id)
-);
-
-alter table blood_drawings add constraint blood_drawings_c1 check (status in ('A', 'N', 'D', 'E'));
-alter table blood_drawings comment 'blood bank of the hospital';
-
-create index blood_drawings_i1 on blood_drawings(procedure_id);
-create index blood_drawings_i2 on blood_drawings(blood_group_id);
-
--- --------------------------------------------------------------------------------------------------
-create table blood_donations(
-  donation_id                     int(10) unsigned    not null auto_increment,
-  procedure_id                    int(10) unsigned    not null,
-  drawing_id                      int(10) unsigned    not null,
-  constraint blood_donations_pk primary key (donation_id),
-  constraint blood_donations_f1 foreign key (procedure_id) references procedures(procedure_id),
-  constraint blood_donations_f2 foreign key (drawing_id) references blood_drawings(drawing_id)
-);
-
-alter table blood_drawings comment 'blood donations of the hospital';
-
-create index blood_donations_i1 on blood_donations(procedure_id);
-create index blood_donations_i2 on blood_donations(drawing_id);
